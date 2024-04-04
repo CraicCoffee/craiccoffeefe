@@ -18,9 +18,10 @@ const fieldTranslations = {
 };
 
 const RatingChartAndTable = ({ brewId, ratingData, onRatingSubmit }) => {
-  console.log('ratingData:', ratingData)
-  if (!ratingData) {
-    // 评分数据为空，显示新建评分表的表单
+  const isDataEmpty = !ratingData || (Object.keys(ratingData).length === 0 && ratingData.constructor === Object);
+
+  // 如果ratingData为空、null或者是一个空对象，将显示RatingForm以允许用户提交新的评分
+  if (isDataEmpty) {
     return <RatingForm brewId={brewId} onRatingSubmit={onRatingSubmit} />;
   }
 

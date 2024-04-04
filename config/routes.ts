@@ -56,6 +56,12 @@
     ],
   },
   {
+    name: '冲煮分析',
+    path: '/analysis',
+    icon: 'BarChartOutlined',
+    component: './analysis/index',
+  },
+  {
     name: 'account',
     icon: 'UserOutlined',
     path: '/account',

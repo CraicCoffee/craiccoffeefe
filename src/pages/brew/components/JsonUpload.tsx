@@ -80,7 +80,7 @@ const JsonUpload = ({ onSuccess }) => { // 接收 onSuccess prop
 
   return (
     <Upload {...uploadProps}>
-      <Button icon={<UploadOutlined />}>Select File</Button>
+      <Button type="primary" icon={<UploadOutlined />}>Select File</Button>
     </Upload>
   );
 };

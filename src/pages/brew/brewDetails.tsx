@@ -69,7 +69,7 @@ const BrewDetails = () => {
         // 首先获取评分数据
         const ratingResponse = await axios.get(`/api/brew-ratings/${id}`);
         const ratingData = ratingResponse.data;
-
+        console.log('Rating dataasdasdf:', ratingResponse)
         // 紧接着获取酿造数据
         const brewResponse = await fetch(`/api/brew/${id}`);
         if (!brewResponse.ok) {
@@ -107,15 +107,21 @@ const BrewDetails = () => {
 
   const handleRatingSubmit = async (ratingValues) => {
     try {
-      // 将评分数据发送到后端API，根据你的API调整URL
+      // Post the rating data to the backend API
       const response = await axios.post(`/api/brew-ratings`, ratingValues);
-      // 可能需要更新状态或执行其他操作来处理响应
-      message.success('Rating submitted:', response.data);
+
+      // Assuming the response contains the new rating data
+      const newRatingData = response.data;
+
+      // Update the state with the new rating data
+      setRatingData(newRatingData);
+
+      message.success('Rating submitted successfully.');
+      // Other actions after successful submission, if needed
     } catch (error) {
-      message.error('Failed to submit rating:', error);
+      message.error(`Failed to submit rating: ${error.message}`);
     }
   };
-
 
   function buildTabElements(brew, ratingData) {
     const {json} = brew;
@@ -232,6 +238,7 @@ const BrewDetails = () => {
           // ...TabPane 内容
           <Card>
             <RatingChartAndTable
+              key={Date.now()} // 强制重新渲染组件
               brewId={id}
               ratingData={ratingData}
               onRatingSubmit={handleRatingSubmit}
