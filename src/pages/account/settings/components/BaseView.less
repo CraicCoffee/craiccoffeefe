@@ -1,0 +1,50 @@
+@import (reference) '~antd/es/style/themes/default.less';
+
+.baseView {
+  display: flex;
+  padding-top: 12px;
+
+  :global {
+    .ant-legacy-form-item .ant-legacy-form-item-control-wrapper {
+      width: 100%;
+    }
+  }
+
+  .left {
+    width: 500px;
+    min-width: 224px;
+    max-width: 448px;
+  }
+  .right {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    max-width: 200px;
+    padding-left: 24px;
+  }
+}
+
+.area_code {
+  width: 72px;
+}
+.phone_number {
+  width: 214px;
+}
+
+@media screen and (max-width: @screen-xl) {
+  .baseView {
+    flex-direction: column-reverse;
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 448px;
+      padding: 20px;
+      .avatar_title {
+        display: none;
+      }
+    }
+  }
+}

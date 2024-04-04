@@ -1,0 +1,2143 @@
+{
+  "openapi": "3.0.1",
+  "info": { "title": "InsightMon API Service", "version": "1.0" },
+  "servers": [{ "url": "/", "description": "Default Server URL" }],
+  "paths": {
+    "/api/v0/v1/metrics": {
+      "post": {
+        "tags": ["metric-controller"],
+        "description": "open telemetry 用接口，前端忽略。",
+        "operationId": "putMetric",
+        "parameters": [
+          {
+            "name": "Content-Encoding",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "Accept-Encoding",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/api/v0/thirdPartyKey/{id}/update": {
+      "post": {
+        "tags": ["third-party-key-controller"],
+        "description": "修改 ThirdPartyKey",
+        "operationId": "updateThirdPartyKey",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateThirdPartyKeyRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseThirdPartyKey" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/thirdPartyKey/{id}/delete": {
+      "post": {
+        "tags": ["third-party-key-controller"],
+        "description": "删除 ThirdPartyKey",
+        "operationId": "deleteThirdPartyKey",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/thirdPartyKey/add": {
+      "post": {
+        "tags": ["third-party-key-controller"],
+        "description": "新增 ThirdPartyKey",
+        "operationId": "addThirdPartyKey",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AddThirdPartyKeyRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseThirdPartyKey" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/statuspage/update": {
+      "post": {
+        "tags": ["status-page-controller"],
+        "description": "修改状态页",
+        "operationId": "updateStatusPage",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateStatusPageRequestBody" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/statuspage/service/update": {
+      "post": {
+        "tags": ["status-page-controller"],
+        "description": "修改状态页服务",
+        "operationId": "updateStatusPageService",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateStatusPageServiceRequestBody" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/statuspage/service/list/{uuid}": {
+      "post": {
+        "tags": ["status-page-controller"],
+        "description": "列出所有状态页服务，暂时没有翻页。",
+        "operationId": "listStatusPageService",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseListListStatusPageServiceResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/statuspage/service/delete/": {
+      "post": {
+        "tags": ["status-page-controller"],
+        "description": "删除状态页服务",
+        "operationId": "deleteStatusPageService",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DeleteStatusPageServiceRequestBody" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/statuspage/service/create": {
+      "post": {
+        "tags": ["status-page-controller"],
+        "description": "创建状态页服务。一个状态页可以有多个服务。",
+        "operationId": "createStatusPageService",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AddStatusPageServiceRequestBody" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseUUIDResponseBody" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/statuspage/list": {
+      "post": {
+        "tags": ["status-page-controller"],
+        "description": "列出所有状态页，暂时没有翻页。",
+        "operationId": "listStatusPage",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseListListStatusPageResponseBody" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/statuspage/delete/{uuid}": {
+      "post": {
+        "tags": ["status-page-controller"],
+        "description": "删除状态页",
+        "operationId": "deleteStatusPage",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/statuspage/create": {
+      "post": {
+        "tags": ["status-page-controller"],
+        "description": "创建状态页",
+        "operationId": "createStatusPage",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AddStatusPageRequestBody" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseUUIDResponseBody" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/notices/send": {
+      "post": {
+        "tags": ["notification-controller"],
+        "description": "测试用，前端不用管。",
+        "operationId": "sendNotification",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SendNotificationRequestBody" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/metrics/search": {
+      "post": {
+        "tags": ["metric-controller"],
+        "description": "搜索有哪些 metric，name 和 tags 均为可选。如果 name 和 tags 均不发送返回所有。",
+        "operationId": "searchMetrics",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SearchMetricsRequestBody" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseDataWithPageTokenMetricMetadata" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/metrics/put": {
+      "post": {
+        "tags": ["metric-controller"],
+        "description": "上报特定 metric 数据点",
+        "operationId": "putMetrics",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "type": "array", "items": { "$ref": "#/components/schemas/PutMetric" } }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/metrics/get": {
+      "post": {
+        "tags": ["metric-controller"],
+        "description": "拿到特定 metric 的所有数据点, 注意把 search 拿到的 metadata 一起传回来",
+        "operationId": "getMetrics",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/MetricGetRequest" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseDataWithPageTokenGetMetric" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/giftCard/verify": {
+      "post": {
+        "tags": ["gift-card-controller"],
+        "description": "核销 GiftCard",
+        "operationId": "verifyGiftCard",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/VerifyGiftCardRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseGiftCardVerifyResult" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/dashboard/remove": {
+      "post": {
+        "tags": ["dash-board-controller"],
+        "description": "删除 dashboard",
+        "operationId": "removeDashBoards",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RemoveDashBoardsRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/dashboard/put": {
+      "post": {
+        "tags": ["dash-board-controller"],
+        "description": "更新 dashboard config",
+        "operationId": "putDashBoard",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutDashBoardsRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/dashboard/get": {
+      "post": {
+        "tags": ["dash-board-controller"],
+        "description": "拿到 dashboard 数据",
+        "operationId": "getDashBoard",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/GetDashBoardsRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseGetDashBoardsResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/dashboard/add": {
+      "post": {
+        "tags": ["dash-board-controller"],
+        "description": "添加 dashboard",
+        "operationId": "addDashBoard",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AddDashBoardsRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseAddDashBoardsResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/canaries/search": {
+      "post": {
+        "tags": ["canary-controller"],
+        "description": "搜索云拨测。返回所有含有 name 的数据。",
+        "operationId": "searchCanaries",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SearchCanariesRequestBody" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseListListCanaryResponseBody" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/canaries/list": {
+      "post": {
+        "tags": ["canary-controller"],
+        "description": "返回所有云拨测，暂时没有实现分页。",
+        "operationId": "listCanaries",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseListListCanaryResponseBody" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/canaries/describe/{uuid}": {
+      "post": {
+        "tags": ["canary-controller"],
+        "description": "搜索单个云拨测详细数据，拨测历史数据用这个 api 拿到的 metric 去请求 metric api。",
+        "operationId": "describeCanary",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseDescribeCanaryResponseBody" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/canaries/delete/{uuid}": {
+      "post": {
+        "tags": ["canary-controller"],
+        "description": "删除云拨测",
+        "operationId": "deleteCanary",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/canaries/create": {
+      "post": {
+        "tags": ["canary-controller"],
+        "description": "创建云拨测",
+        "operationId": "createCanary",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AddCanaryRequestBody" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseAddCanaryResponseBody" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/alarms/update/{uuid}": {
+      "post": {
+        "tags": ["alarm-controller"],
+        "operationId": "updateAlarm",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateAlarmRequestBody" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/alarms/event": {
+      "post": {
+        "tags": ["alarm-controller"],
+        "description": "后端用，前端不用管。接受 event bridge 的通知，用来处理 cloudwatch alarm 的状态变更。",
+        "operationId": "addStateChangeEvent",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/JsonNode" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/alarms/add": {
+      "post": {
+        "tags": ["alarm-controller"],
+        "operationId": "addAlarm",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/AddAlarmRequestBody" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseAddAlarmResponseBody" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/register": {
+      "post": {
+        "tags": ["auth-controller"],
+        "operationId": "register",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/RegisterForm" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/login/outLogin": {
+      "post": {
+        "tags": ["auth-controller"],
+        "operationId": "logout",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/login/account": {
+      "post": {
+        "tags": ["auth-controller"],
+        "operationId": "login",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/LoginForm" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/ResponseLoginBody" } }
+            }
+          }
+        }
+      }
+    },
+    "/monitor/notification": {
+      "get": {
+        "tags": ["monitor-controller"],
+        "operationId": "isNotificationAlive",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } } }
+          }
+        }
+      }
+    },
+    "/monitor/metric": {
+      "get": {
+        "tags": ["monitor-controller"],
+        "operationId": "isMetricAlive",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } } }
+          }
+        }
+      }
+    },
+    "/monitor/database": {
+      "get": {
+        "tags": ["monitor-controller"],
+        "operationId": "isDatabaseAlive",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } } }
+          }
+        }
+      }
+    },
+    "/monitor/dashboard": {
+      "get": {
+        "tags": ["monitor-controller"],
+        "operationId": "isDashboardAlive",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } } }
+          }
+        }
+      }
+    },
+    "/monitor/api": {
+      "get": {
+        "tags": ["monitor-controller"],
+        "operationId": "isAPIAlive",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } } }
+          }
+        }
+      }
+    },
+    "/monitor/alarm": {
+      "get": {
+        "tags": ["monitor-controller"],
+        "operationId": "isAlarmAlive",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } } }
+          }
+        }
+      }
+    },
+    "/debug/log": {
+      "get": {
+        "tags": ["debug-controller"],
+        "operationId": "log",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK", "content": { "*/*": { "schema": { "type": "string" } } } }
+        }
+      }
+    },
+    "/api/v0/thirdPartyKey/all": {
+      "get": {
+        "tags": ["third-party-key-controller"],
+        "description": "查询当前用户所有的 ThirdPartyKey",
+        "operationId": "getAllThirdPartyKey",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseListThirdPartyKey" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/notices": {
+      "get": {
+        "tags": ["notification-controller"],
+        "operationId": "getUnreadNotifications",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseNoticesResponseBody" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/notices/read/": {
+      "get": {
+        "tags": ["notification-controller"],
+        "operationId": "readNotification",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/notices/all": {
+      "get": {
+        "tags": ["notification-controller"],
+        "operationId": "getNotifications",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseNoticesResponseBody" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/dashboard/list": {
+      "get": {
+        "tags": ["dash-board-controller"],
+        "description": "拿到所有 dashboard，无 config。",
+        "operationId": "listDashBoards",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseListDashBoardResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/alarms/list": {
+      "get": {
+        "tags": ["alarm-controller"],
+        "operationId": "listAlarms",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseListListAlarmResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/alarms/get/{uuid}": {
+      "get": {
+        "tags": ["alarm-controller"],
+        "operationId": "getAlarm",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseGetAlarmResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v0/alarms/delete/{uuid}": {
+      "get": {
+        "tags": ["alarm-controller"],
+        "operationId": "deleteAlarm",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EmptyResponse" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/currentUser": {
+      "get": {
+        "tags": ["auth-controller"],
+        "operationId": "currentUser",
+        "parameters": [
+          {
+            "name": "ACCESS-KEY",
+            "in": "header",
+            "description": "ACCESS-KEY",
+            "schema": { "type": "string", "default": "eb252782-5536-11ed-83fb-90e2ba88e7ec" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ResponseCurrentUserBody" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UpdateThirdPartyKeyRequest": {
+        "type": "object",
+        "properties": { "value": { "type": "string" } }
+      },
+      "ResponseThirdPartyKey": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/ThirdPartyKey" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "ThirdPartyKey": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "platformName": {
+            "type": "string",
+            "enum": ["AWS", "GOOGLE_CLOUD", "AZURE", "ALIYUN", "TENCENT_CLOUD"]
+          },
+          "value": { "type": "string" }
+        }
+      },
+      "EmptyResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "AddThirdPartyKeyRequest": {
+        "type": "object",
+        "properties": {
+          "platformName": {
+            "type": "string",
+            "enum": ["AWS", "GOOGLE_CLOUD", "AZURE", "ALIYUN", "TENCENT_CLOUD"]
+          },
+          "value": { "type": "string" }
+        }
+      },
+      "UpdateStatusPageRequestBody": {
+        "required": ["name"],
+        "type": "object",
+        "properties": {
+          "uuid": { "type": "string", "format": "uuid" },
+          "name": {
+            "type": "string",
+            "description": "状态页的名字，需要唯一。暂时没有唯一性校验。"
+          },
+          "description": { "type": "string", "description": "状态页描述。" },
+          "visible": {
+            "type": "boolean",
+            "description": "状态页是否公开，现在没用。",
+            "default": false
+          },
+          "url": { "type": "string", "description": "状态页的链接。" }
+        },
+        "description": "更新状态页。"
+      },
+      "UpdateStatusPageServiceRequestBody": {
+        "required": ["type"],
+        "type": "object",
+        "properties": {
+          "uuid": { "type": "string", "format": "uuid" },
+          "name": { "type": "string", "description": "服务的名字，需要唯一。暂时没有唯一性校验。" },
+          "type": {
+            "type": "string",
+            "description": "服务的种类",
+            "enum": ["Alarm", "Canary", "Manual"]
+          },
+          "referencedUUID": {
+            "type": "string",
+            "description": "如果 type 是 Alarm 填 Alarm 的 UUID，如果 type 是 Canary 填 Canary 的 UUID，如果是 Manual 留空。",
+            "format": "uuid"
+          },
+          "manualStatus": {
+            "type": "string",
+            "description": "如果 type 是 Manual，这个状态必填。如果是 Alarm 和 Canary，留空。",
+            "enum": ["Operational", "Outage", "Nodata"]
+          }
+        }
+      },
+      "ListStatusPageServiceResponseBody": {
+        "type": "object",
+        "properties": {
+          "uuid": { "type": "string", "description": "该服务的uuid", "format": "uuid" },
+          "name": { "type": "string", "description": "服务的名字，需要唯一。暂时没有唯一性校验。" },
+          "type": {
+            "type": "string",
+            "description": "服务的种类",
+            "enum": ["Alarm", "Canary", "Manual"]
+          },
+          "referencedUUID": {
+            "type": "string",
+            "description": "如果 type 是 Alarm 填 Alarm 的 UUID，如果 type 是 Canary 填 Canary 的 UUID，如果是 Manual 留空。",
+            "format": "uuid"
+          },
+          "manualStatus": {
+            "type": "string",
+            "description": "如果 type 是 Manual，这个状态必填。如果是 Alarm 和 Canary，留空。",
+            "enum": ["Operational", "Outage", "Nodata"]
+          }
+        }
+      },
+      "ResponseListListStatusPageServiceResponseBody": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ListStatusPageServiceResponseBody" }
+          },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "DeleteStatusPageServiceRequestBody": {
+        "required": ["type", "uuid"],
+        "type": "object",
+        "properties": {
+          "uuid": { "type": "string", "format": "uuid" },
+          "type": { "type": "string", "enum": ["Alarm", "Canary", "Manual"] }
+        }
+      },
+      "AddStatusPageServiceRequestBody": {
+        "required": ["name", "pageUUID", "type"],
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "服务的名字，需要唯一。暂时没有唯一性校验。" },
+          "type": {
+            "type": "string",
+            "description": "服务的种类",
+            "enum": ["Alarm", "Canary", "Manual"]
+          },
+          "referencedUUID": {
+            "type": "string",
+            "description": "如果 type 是 Alarm 填 Alarm 的 ID，如果 type 是 Canary 填 Canary 的 ID，如果是 Manual 留空。",
+            "format": "uuid"
+          },
+          "manualStatus": {
+            "type": "string",
+            "description": "如果 type 是 Manual，这个状态必填。如果是 Alarm 和 Canary，留空。",
+            "enum": ["Operational", "Outage", "Nodata"]
+          },
+          "pageUUID": { "type": "string", "description": "状态页 ID", "format": "uuid" }
+        },
+        "description": "一个状态页可以有多个服务。"
+      },
+      "ResponseUUIDResponseBody": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/UUIDResponseBody" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "UUIDResponseBody": {
+        "type": "object",
+        "properties": { "uuid": { "type": "string", "format": "uuid" } }
+      },
+      "ListStatusPageResponseBody": {
+        "type": "object",
+        "properties": {
+          "uuid": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "visible": { "type": "boolean" },
+          "url": { "type": "string" }
+        }
+      },
+      "ResponseListListStatusPageResponseBody": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ListStatusPageResponseBody" }
+          },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "AddStatusPageRequestBody": {
+        "required": ["name"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "状态页的名字，需要唯一。暂时没有唯一性校验。"
+          },
+          "description": { "type": "string", "description": "状态页描述。" },
+          "visible": {
+            "type": "boolean",
+            "description": "状态页是否公开，现在没用。",
+            "default": false
+          },
+          "url": { "type": "string", "description": "状态页的链接。" }
+        },
+        "description": "创建状态页。"
+      },
+      "SendNotificationRequestBody": {
+        "type": "object",
+        "properties": {
+          "receiver": { "type": "string" },
+          "receiverType": { "type": "string", "enum": ["Email", "Sms", "Web"] },
+          "content": { "type": "string" }
+        }
+      },
+      "KeyValue": {
+        "type": "object",
+        "properties": { "key": { "type": "string" }, "value": { "type": "string" } }
+      },
+      "SearchMetricsRequestBody": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "tags": { "type": "array", "items": { "$ref": "#/components/schemas/KeyValue" } }
+        }
+      },
+      "DataWithPageTokenMetricMetadata": {
+        "type": "object",
+        "properties": {
+          "metrics": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/MetricMetadata" }
+          },
+          "pageToken": { "type": "string" }
+        }
+      },
+      "MetricMetadata": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "metadata": { "type": "array", "items": { "$ref": "#/components/schemas/KeyValue" } },
+          "tags": { "type": "array", "items": { "$ref": "#/components/schemas/KeyValue" } }
+        }
+      },
+      "ResponseDataWithPageTokenMetricMetadata": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/DataWithPageTokenMetricMetadata" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "MetricDataPoint": {
+        "type": "object",
+        "properties": {
+          "timestamp": { "type": "string", "format": "date-time" },
+          "values": { "type": "array", "items": { "type": "number", "format": "double" } }
+        }
+      },
+      "PutMetric": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "tags": { "type": "object", "additionalProperties": { "type": "string" } },
+          "dataPoints": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/MetricDataPoint" }
+          }
+        }
+      },
+      "MetricGetRequest": {
+        "type": "object",
+        "properties": {
+          "startTime": { "type": "string", "format": "date-time" },
+          "endTime": { "type": "string", "format": "date-time" },
+          "period": { "type": "integer", "format": "int32" },
+          "statistic": {
+            "type": "string",
+            "enum": ["SampleCount", "Sum", "Average", "Minimum", "Maximum", "p99", "p95", "p90"]
+          },
+          "metrics": { "type": "array", "items": { "$ref": "#/components/schemas/MetricMetadata" } }
+        }
+      },
+      "DataPoint": {
+        "type": "object",
+        "properties": {
+          "timestamp": { "type": "string", "format": "date-time" },
+          "value": { "type": "number", "format": "double" }
+        }
+      },
+      "DataWithPageTokenGetMetric": {
+        "type": "object",
+        "properties": {
+          "metrics": { "type": "array", "items": { "$ref": "#/components/schemas/GetMetric" } },
+          "pageToken": { "type": "string" }
+        }
+      },
+      "GetMetric": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "metadata": { "type": "array", "items": { "$ref": "#/components/schemas/KeyValue" } },
+          "tags": { "type": "array", "items": { "$ref": "#/components/schemas/KeyValue" } },
+          "dataPoints": { "type": "array", "items": { "$ref": "#/components/schemas/DataPoint" } }
+        }
+      },
+      "ResponseDataWithPageTokenGetMetric": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/DataWithPageTokenGetMetric" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "VerifyGiftCardRequest": { "type": "object", "properties": { "code": { "type": "string" } } },
+      "GiftCardVerifyResult": {
+        "type": "object",
+        "properties": {
+          "verified": { "type": "boolean" },
+          "days": { "type": "integer", "format": "int32" }
+        }
+      },
+      "ResponseGiftCardVerifyResult": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/GiftCardVerifyResult" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "RemoveDashBoardsRequest": {
+        "type": "object",
+        "properties": { "uuid": { "type": "string", "format": "uuid" } }
+      },
+      "PutDashBoardsRequest": {
+        "required": ["config", "uuid"],
+        "type": "object",
+        "properties": {
+          "uuid": { "type": "string", "format": "uuid" },
+          "config": { "type": "string" }
+        }
+      },
+      "GetDashBoardsRequest": {
+        "type": "object",
+        "properties": { "uuid": { "type": "string", "format": "uuid" } }
+      },
+      "GetDashBoardsResponse": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "config": { "type": "string" },
+          "createdTime": { "type": "string", "format": "date-time" },
+          "updatedTime": { "type": "string", "format": "date-time" }
+        }
+      },
+      "ResponseGetDashBoardsResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/GetDashBoardsResponse" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "AddDashBoardsRequest": {
+        "required": ["name", "type"],
+        "type": "object",
+        "properties": { "name": { "type": "string" }, "type": { "type": "string" } }
+      },
+      "AddDashBoardsResponse": {
+        "type": "object",
+        "properties": { "uuid": { "type": "string", "format": "uuid" } }
+      },
+      "ResponseAddDashBoardsResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/AddDashBoardsResponse" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "SearchCanariesRequestBody": {
+        "type": "object",
+        "properties": { "name": { "type": "string" } }
+      },
+      "ListCanaryResponseBody": {
+        "type": "object",
+        "properties": {
+          "uuid": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "cronPattern": { "type": "string" },
+          "repeat": { "type": "boolean" },
+          "httpUrl": { "type": "string" }
+        }
+      },
+      "ResponseListListCanaryResponseBody": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ListCanaryResponseBody" }
+          },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "DescribeCanaryResponseBody": {
+        "type": "object",
+        "properties": {
+          "uuid": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "cronPattern": { "type": "string" },
+          "repeat": { "type": "boolean" },
+          "httpUrl": { "type": "string" },
+          "httpHeader": { "type": "array", "items": { "$ref": "#/components/schemas/KeyValue" } },
+          "httpBody": { "type": "string" },
+          "metric": { "$ref": "#/components/schemas/MetricMetadata" }
+        }
+      },
+      "ResponseDescribeCanaryResponseBody": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/DescribeCanaryResponseBody" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "AddCanaryRequestBody": {
+        "required": ["cronPattern", "httpUrl", "name", "repeat"],
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "拨测的名字，需要唯一。暂时没有唯一性校验。" },
+          "cronPattern": {
+            "type": "string",
+            "description": "拨测的 cron 配置，用来控制频率。aws 的 cron 不是标准 cron，有很多不一样。aws 的 cron 最后多了一个 year 字段，我们不用。https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html#eb-cron-expressions",
+            "example": "*/1 * * * ?"
+          },
+          "repeat": {
+            "type": "boolean",
+            "description": "是否只生效 cron 配置一次，用来测试 cron 是否写对。暂时没实现。",
+            "default": false
+          },
+          "httpUrl": {
+            "type": "string",
+            "description": "拨测的 url，需要包含协议头。",
+            "example": "https://www.baidu.com"
+          },
+          "httpHeader": {
+            "type": "array",
+            "description": "http header，可以是重复的值。",
+            "items": { "$ref": "#/components/schemas/KeyValue" }
+          },
+          "httpBody": { "type": "string", "description": "http body" }
+        }
+      },
+      "AddCanaryResponseBody": {
+        "type": "object",
+        "properties": { "uuid": { "type": "string", "format": "uuid" } }
+      },
+      "ResponseAddCanaryResponseBody": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/AddCanaryResponseBody" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "AlarmReceiver": {
+        "type": "object",
+        "properties": {
+          "receiver": { "type": "string" },
+          "type": { "type": "string", "enum": ["Email", "Sms", "Web"] }
+        },
+        "description": "可选，老数据保留。"
+      },
+      "UpdateAlarmRequestBody": {
+        "type": "object",
+        "properties": {
+          "metric": { "$ref": "#/components/schemas/MetricMetadata" },
+          "description": {
+            "type": "string",
+            "description": "如果更新非 status reason message receivers 中任何一个，该字段必选，老数据不保留。"
+          },
+          "statistic": {
+            "type": "string",
+            "description": "如果更新非 status reason message receivers 中任何一个，该字段必选，老数据不保留。",
+            "enum": ["SampleCount", "Average", "Sum", "Minimum", "Maximum"]
+          },
+          "comparator": {
+            "type": "string",
+            "description": "如果更新非 status reason message receivers 中任何一个，该字段必选，老数据不保留。",
+            "enum": [
+              "GreaterThanOrEqualToThreshold",
+              "GreaterThanThreshold",
+              "LessThanThreshold",
+              "LessThanOrEqualToThreshold",
+              "LessThanLowerOrGreaterThanUpperThreshold",
+              "LessThanLowerThreshold",
+              "GreaterThanUpperThreshold"
+            ]
+          },
+          "threshold": {
+            "type": "number",
+            "description": "如果更新非 status reason message receivers 中任何一个，该字段必选，老数据不保留。",
+            "format": "double"
+          },
+          "period": {
+            "type": "integer",
+            "description": "如果更新非 status reason message receivers 中任何一个，该字段必选，老数据不保留。",
+            "format": "int32"
+          },
+          "dataPointsToAlarm": {
+            "type": "integer",
+            "description": "如果更新非 status reason message receivers 中任何一个，该字段必选，老数据不保留。",
+            "format": "int32"
+          },
+          "evaluationPeriods": {
+            "type": "integer",
+            "description": "如果更新非 status reason message receivers 中任何一个，该字段必选，老数据不保留。",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "description": "更新该字段可以更新 reason",
+            "enum": ["OK", "ALARM", "INSUFFICIENT_DATA"]
+          },
+          "reason": { "type": "string", "description": "更新该字段要求 status 字段必选" },
+          "message": {
+            "type": "string",
+            "description": "可选，老数据保留。支持模板字符串。 {{previous_status}} {{current_status}} {{previous_reason}} {{current_reason}} {{previous_timestamp}} {{current_timestamp}}"
+          },
+          "receivers": {
+            "type": "array",
+            "description": "可选，老数据保留。",
+            "items": { "$ref": "#/components/schemas/AlarmReceiver" }
+          }
+        },
+        "description": "除了 status reason reasonData 特殊处理，其他所有字段都是可选。未发送字段老数据会保留。"
+      },
+      "JsonNode": { "type": "object" },
+      "AddAlarmRequestBody": {
+        "type": "object",
+        "properties": {
+          "metric": { "$ref": "#/components/schemas/MetricMetadata" },
+          "description": { "type": "string" },
+          "statistic": {
+            "type": "string",
+            "enum": ["SampleCount", "Average", "Sum", "Minimum", "Maximum"]
+          },
+          "comparator": {
+            "type": "string",
+            "enum": [
+              "GreaterThanOrEqualToThreshold",
+              "GreaterThanThreshold",
+              "LessThanThreshold",
+              "LessThanOrEqualToThreshold",
+              "LessThanLowerOrGreaterThanUpperThreshold",
+              "LessThanLowerThreshold",
+              "GreaterThanUpperThreshold"
+            ]
+          },
+          "threshold": { "type": "number", "format": "double" },
+          "period": { "type": "integer", "format": "int32" },
+          "dataPointsToAlarm": { "type": "integer", "format": "int32" },
+          "evaluationPeriods": { "type": "integer", "format": "int32" },
+          "message": {
+            "type": "string",
+            "description": "支持模板字符串 {{previous_status}} {{current_status}} {{previous_reason}} {{current_reason}} {{previous_timestamp}} {{current_timestamp}}"
+          },
+          "receivers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AlarmReceiver" }
+          }
+        }
+      },
+      "AddAlarmResponseBody": {
+        "type": "object",
+        "properties": { "uuid": { "type": "string", "format": "uuid" } }
+      },
+      "ResponseAddAlarmResponseBody": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/AddAlarmResponseBody" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "RegisterForm": {
+        "type": "object",
+        "properties": { "username": { "type": "string" }, "password": { "type": "string" } }
+      },
+      "LoginForm": {
+        "type": "object",
+        "properties": { "username": { "type": "string" }, "password": { "type": "string" } }
+      },
+      "LoginBody": {
+        "type": "object",
+        "properties": { "type": { "type": "string" }, "currentAuthority": { "type": "string" } }
+      },
+      "ResponseLoginBody": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/LoginBody" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "ResponseListThirdPartyKey": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/ThirdPartyKey" } },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "Notice": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "read": { "type": "boolean" },
+          "title": { "type": "string" },
+          "dateTime": { "type": "string", "format": "date-time" },
+          "description": { "type": "string" }
+        }
+      },
+      "NoticesResponseBody": {
+        "type": "object",
+        "properties": {
+          "list": { "type": "array", "items": { "$ref": "#/components/schemas/Notice" } },
+          "total": { "type": "integer", "format": "int32" }
+        }
+      },
+      "ResponseNoticesResponseBody": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/NoticesResponseBody" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "ListDashBoardResponse": {
+        "type": "object",
+        "properties": {
+          "dashBoardList": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NoConfigDashBoard" }
+          }
+        }
+      },
+      "NoConfigDashBoard": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "uuid": { "type": "string", "format": "uuid" },
+          "createdTime": { "type": "string", "format": "date-time" },
+          "updatedTime": { "type": "string", "format": "date-time" }
+        }
+      },
+      "ResponseListDashBoardResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/ListDashBoardResponse" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "ListAlarmResponse": {
+        "type": "object",
+        "properties": {
+          "uuid": { "type": "string", "format": "uuid" },
+          "description": { "type": "string" },
+          "status": { "type": "string" },
+          "reason": { "type": "string" },
+          "updatedTimestamp": { "type": "string", "format": "date-time" },
+          "message": { "type": "string" },
+          "receivers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AlarmReceiver" }
+          }
+        }
+      },
+      "ResponseListListAlarmResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ListAlarmResponse" }
+          },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "AlarmHistory": {
+        "type": "object",
+        "properties": {
+          "timestamp": { "type": "string", "format": "date-time" },
+          "type": { "type": "string" },
+          "summary": { "type": "string" },
+          "data": { "type": "string" }
+        }
+      },
+      "GetAlarmResponse": {
+        "type": "object",
+        "properties": {
+          "uuid": { "type": "string", "format": "uuid" },
+          "description": { "type": "string" },
+          "creator": { "type": "string" },
+          "createdTime": { "type": "string", "format": "date-time" },
+          "statistic": {
+            "type": "string",
+            "enum": ["SampleCount", "Average", "Sum", "Minimum", "Maximum"]
+          },
+          "comparator": {
+            "type": "string",
+            "enum": [
+              "GreaterThanOrEqualToThreshold",
+              "GreaterThanThreshold",
+              "LessThanThreshold",
+              "LessThanOrEqualToThreshold",
+              "LessThanLowerOrGreaterThanUpperThreshold",
+              "LessThanLowerThreshold",
+              "GreaterThanUpperThreshold"
+            ]
+          },
+          "threshold": { "type": "number", "format": "double" },
+          "period": { "type": "integer", "format": "int32" },
+          "dataPointsToAlarm": { "type": "integer", "format": "int32" },
+          "evaluationPeriods": { "type": "integer", "format": "int32" },
+          "status": { "type": "string", "enum": ["OK", "ALARM", "INSUFFICIENT_DATA"] },
+          "reason": { "type": "string" },
+          "updatedTimestamp": { "type": "string", "format": "date-time" },
+          "message": { "type": "string" },
+          "history": { "type": "array", "items": { "$ref": "#/components/schemas/AlarmHistory" } },
+          "metric": { "$ref": "#/components/schemas/MetricMetadata" },
+          "receivers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AlarmReceiver" }
+          }
+        }
+      },
+      "ResponseGetAlarmResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/GetAlarmResponse" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      },
+      "CurrentUserBody": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "expiresAt": { "type": "string", "format": "date-time" },
+          "alreadyExpired": { "type": "boolean" }
+        }
+      },
+      "ResponseCurrentUserBody": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "$ref": "#/components/schemas/CurrentUserBody" },
+          "errorMessage": { "type": "string" },
+          "requestId": { "type": "string", "format": "uuid" }
+        }
+      }
+    }
+  }
+}

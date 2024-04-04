@@ -1,0 +1,67 @@
+.container {
+  position: relative;
+
+  .hidden {
+    display: none;
+  }
+
+  .box {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 35px;
+    height: 25px;
+    font-size: 12px;
+    line-height: 25px;
+    text-align: center;
+    background: #fffafad6;
+    border: 1px solid #000;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+:global {
+  .ant-popover {
+    width: 400px;
+  }
+}
+
+.contentTop {
+  display: flex;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #d0d4d7;
+  :global {
+    .ant-input:not(.ant-pro-form-login-main .ant-input) {
+      padding: 0;
+      border: none !important;
+    }
+    .ant-input:not(.ant-pro-form-login-main .ant-input):hover {
+      border-color: '#699dff';
+    }
+    .ant-input-affix-wrapper {
+      padding: 0 10px;
+    }
+    .ant-btn-sm {
+      height: 30px;
+      padding: 0 5px;
+      color: #007bc7;
+      border: none;
+      box-shadow: none;
+    }
+    .ant-btn:not(.ant-btn-primary):not(.ant-btn-dangerous):not(.ant-btn-text):not(
+        .ant-btn-link
+      ):focus,
+    .ant-btn:not(.ant-btn-primary):not(.ant-btn-dangerous):not(.ant-btn-text):not(
+        .ant-btn-link
+      ):hover {
+      color: #fff;
+      background: #007bc7;
+      background-color: #007bc7;
+    }
+  }
+  .copy {
+    margin-left: 10px;
+  }
+}

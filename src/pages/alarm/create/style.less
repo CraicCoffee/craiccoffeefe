@@ -1,0 +1,39 @@
+@import (reference) '~antd/es/style/themes/default.less';
+
+.card {
+  margin-bottom: 24px;
+}
+
+.result {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 24px 0 8px;
+}
+
+.collapseBox {
+  width: 70vw;
+  .title {
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .emptyBox {
+    height: 20px;
+  }
+}
+.codeInput {
+  :global {
+    .ant-input-group-addon {
+      background-color: transparent;
+      border: none;
+    }
+  }
+}
+
+body[data-theme='dark'] {
+  .collapseBox {
+    .title {
+      color: white;
+    }
+  }
+}
