@@ -4,9 +4,10 @@ import type { Store } from 'antd/es/form/interface';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import type { StateType } from './service';
-import { fakeRegister } from './service';
+import { registerv1 } from './service';
 
 import styles from './style.less';
+import axios from "axios";
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -48,6 +49,8 @@ const Register: FC = () => {
   const confirmDirty = false;
   let interval: number | undefined;
   const [form] = Form.useForm();
+  // 添加一个状态来跟踪提交状态
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(
     () => () => {
@@ -56,17 +59,17 @@ const Register: FC = () => {
     [interval],
   );
 
-  const onGetCaptcha = () => {
-    let counts = 59;
-    setCount(counts);
-    interval = window.setInterval(() => {
-      counts -= 1;
-      setCount(counts);
-      if (counts === 0) {
-        clearInterval(interval);
-      }
-    }, 1000);
-  };
+  // const onGetCaptcha = () => {
+  //   let counts = 59;
+  //   setCount(counts);
+  //   interval = window.setInterval(() => {
+  //     counts -= 1;
+  //     setCount(counts);
+  //     if (counts === 0) {
+  //       clearInterval(interval);
+  //     }
+  //   }, 1000);
+  // };
 
   const getPasswordStatus = () => {
     const value = form.getFieldValue('password');
@@ -79,22 +82,44 @@ const Register: FC = () => {
     return 'poor';
   };
 
-  const { loading: submitting, run: register } = useRequest<{ data: StateType }>(fakeRegister, {
-    manual: true,
-    onSuccess: (data, params) => {
-      if (data.status === 'ok') {
+// 使用 useRequest 钩子
+  const handleSubmit = async (values) => {
+    try {
+      const response = await axios.post('/api/v0/auth/register', values, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // 检查响应中是否有token字段
+      if (response.data && response.data.token) {
+        localStorage.setItem('token', response.data.token);
         message.success('注册成功！');
+        console.log('注册成功，准备跳转...');
         history.push({
           pathname: '/user/register-result',
           state: {
-            account: params.email,
+            account: values.email, // 确保values包含email字段
           },
         });
+        console.log("history.push('/user/register-result')", values.email);
+      } else {
+        message.error('注册失败，请重试！');
+        console.error('注册未成功，响应数据：', response);
       }
-    },
-  });
-  const onFinish = (values: Store) => {
-    register(values);
+    } catch (error) {
+      console.error('注册请求失败：', error);
+      message.error('注册失败，请检查您的网络连接或联系管理员。');
+    }
+  };
+
+  const onFinish = async (values) => {
+    setSubmitting(true); // 开始提交，设置加载状态
+    try {
+      await handleSubmit(values); // 调用我们定义的提交函数
+    } finally {
+      setSubmitting(false); // 完成提交，取消加载状态
+    }
   };
 
   const checkConfirm = (_: any, value: string) => {
@@ -151,7 +176,7 @@ const Register: FC = () => {
       <h3>注册</h3>
       <Form form={form} name="UserRegister" onFinish={onFinish}>
         <FormItem
-          name="mail"
+          name="email"
           rules={[
             {
               required: true,
@@ -224,7 +249,7 @@ const Register: FC = () => {
           </Select>
           <FormItem
             style={{ width: '80%' }}
-            name="mobile"
+            name="phone"
             rules={[
               {
                 required: true,
@@ -239,31 +264,31 @@ const Register: FC = () => {
             <Input size="large" placeholder="手机号" />
           </FormItem>
         </InputGroup>
-        <Row gutter={8}>
-          <Col span={16}>
-            <FormItem
-              name="captcha"
-              rules={[
-                {
-                  required: true,
-                  message: '请输入验证码!',
-                },
-              ]}
-            >
-              <Input size="large" placeholder="验证码" />
-            </FormItem>
-          </Col>
-          <Col span={8}>
-            <Button
-              size="large"
-              disabled={!!count}
-              className={styles.getCaptcha}
-              onClick={onGetCaptcha}
-            >
-              {count ? `${count} s` : '获取验证码'}
-            </Button>
-          </Col>
-        </Row>
+        {/*<Row gutter={8}>*/}
+        {/*  <Col span={16}>*/}
+        {/*    <FormItem*/}
+        {/*      name="captcha"*/}
+        {/*      rules={[*/}
+        {/*        {*/}
+        {/*          required: true,*/}
+        {/*          message: '请输入验证码!',*/}
+        {/*        },*/}
+        {/*      ]}*/}
+        {/*    >*/}
+        {/*      <Input size="large" placeholder="验证码" />*/}
+        {/*    </FormItem>*/}
+        {/*  </Col>*/}
+        {/*  <Col span={8}>*/}
+        {/*    <Button*/}
+        {/*      size="large"*/}
+        {/*      disabled={!!count}*/}
+        {/*      className={styles.getCaptcha}*/}
+        {/*      onClick={onGetCaptcha}*/}
+        {/*    >*/}
+        {/*      {count ? `${count} s` : '获取验证码'}*/}
+        {/*    </Button>*/}
+        {/*  </Col>*/}
+        {/*</Row>*/}
         <FormItem>
           <Button
             size="large"

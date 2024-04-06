@@ -2,16 +2,16 @@ import areas from 'china-division/dist/areas.json';
 import cities from 'china-division/dist/cities.json';
 import provinces from 'china-division/dist/provinces.json';
 
-areas.forEach((area) => {
-  const matchCity = cities.filter((city) => city.code === area.cityCode)[0];
-  if (matchCity) {
-    matchCity.children = matchCity.children || [];
-    matchCity.children.push({
-      label: area.name,
-      value: area.code,
-    });
-  }
-});
+// areas.forEach((area) => {
+//   const matchCity = cities.filter((city) => city.code === area.cityCode)[0];
+//   if (matchCity) {
+//     matchCity.children = matchCity.children || [];
+//     matchCity.children.push({
+//       label: area.name,
+//       value: area.code,
+//     });
+//   }
+// });
 
 cities.forEach((city) => {
   const matchProvince = provinces.filter((province) => province.code === city.provinceCode)[0];

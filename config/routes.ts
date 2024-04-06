@@ -9,20 +9,21 @@
         component: './user/Login',
       },
       {
-        path: '/user',
-        redirect: '/user/login',
+        name: 'register',
+        icon: 'smile',
+        path: '/user/register',
+        component: './user/register', // 确保组件名正确
       },
       {
         name: 'register-result',
         icon: 'smile',
         path: '/user/register-result',
-        component: './user/register-result',
+        component: './user/register-result', // 确保组件名正确
       },
       {
-        name: 'register',
-        icon: 'smile',
-        path: '/user/register',
-        component: './user/register',
+        path: '/user',
+        exact: true,
+        redirect: '/user/login',
       },
       {
         component: '404',
@@ -31,7 +32,7 @@
   },
   {
     name: '概览',
-    path: '/overview',
+    path: '/overview/index',
     icon: 'HomeOutlined',
     component: './overview/index',
   },

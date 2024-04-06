@@ -124,7 +124,7 @@ const LoginFormV1: React.FC = () => {
       {type === 'account' && (
         <>
           <Form.Item
-            name="username"
+            name="email"
             rules={[
               {
                 required: true,

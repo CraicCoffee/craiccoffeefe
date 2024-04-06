@@ -1,40 +1,73 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { Outlet } from 'umi';
-import { Tabs } from 'antd';
-import { PageTabsProvider, PageTabsContext } from "@/components/PageContainerContext";
+import { PageTabsProvider } from "@/components/PageContainerContext";
+import SiderMenu from '@/components/sider';
+import { Layout } from 'antd';
 import { PageContainer } from "@/components/page-container";
+import { useLocation } from "@@/exports";
+import styled from "styled-components";
 
-export default function Layout() {
-  const { tabs, currentTab, setCurrentTab } = useContext(PageTabsContext);
+const { Content } = Layout;
 
-  // 如果需要，此处可以设置默认的 tabs
-  // 例如，可以在这里发起一个API调用来获取tabs，然后使用setTabs更新它们
+const loginPath = '/user/login';
+const registerPath = '/user/register';
+
+const isTestDomain = window.location.hostname?.endsWith('insightmontest.com');
+const icp = isTestDomain ? '粤ICP备2023008093号-2' : '粤ICP备2023008093号-1';
+const beian = isTestDomain ? '44030502010142' : '44030502009954';
+
+const Footer = styled.div`
+  width: 100%;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: #d0d4d7;
+  padding-bottom: 8px; /* 如果您想要在 Footer 下方有一些空间 */
+  a {
+    color: inherit;
+  }
+`;
+
+export default function BasicLayout() {
+  const location = useLocation();
+  const isPrivate = location.pathname !== loginPath && location.pathname !== registerPath;
+
+  // 内容区域，可能会被包裹在 PageContainer 中
+  const content = (
+    <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+      <Outlet /> {/* 这里是内容区域 */}
+    </Content>
+  );
 
   return (
     <PageTabsProvider>
-      {/* 将 Tabs 组件放在 PageContainer 的上方 */}
-      {/*{tabs && (*/}
-      {/*  <Tabs*/}
-      {/*    activeKey={currentTab}*/}
-      {/*    onChange={(key) => setCurrentTab(key)}*/}
-      {/*    items={tabs.map(tab => ({*/}
-      {/*      label: tab.label,*/}
-      {/*      key: tab.key*/}
-      {/*    }))}*/}
-      {/*  />*/}
-      {/*)}*/}
-      <PageContainer>
-        {/* 内容区域 */}
-        <Outlet/>
-      </PageContainer>
-      {/* 在 PageContainer 外部渲染当前选中 tab 的内容 */}
-      {/*{tabs?.map((tab) => {*/}
-      {/*  // 只渲染活动的 tab 内容*/}
-      {/*  if (tab.key === currentTab) {*/}
-      {/*    return <div key={tab.key}>{tab.element}</div>;*/}
-      {/*  }*/}
-      {/*  return null;*/}
-      {/*})}*/}
+      <Layout style={{ minHeight: '100vh' }}>
+        {isPrivate && <SiderMenu />} {/* 条件渲染 SiderMenu */}
+        <Layout>
+          {/* 使用 isPrivate 条件来决定是否渲染 PageContainer */}
+          {isPrivate ? (
+            <PageContainer>
+              {content}
+            </PageContainer>
+          ) : content}
+          <Footer>
+            <a
+              target="_blank"
+              href={`http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=${beian}`}
+              rel="noopener noreferrer"
+            >
+              粤公网安备{beian}号 &nbsp; &nbsp;
+            </a>
+            <a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">
+              {icp}
+            </a>
+          </Footer>
+          {/* 如果有 Footer，可以在这里添加 */}
+          {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}
+        </Layout>
+      </Layout>
     </PageTabsProvider>
   );
 }

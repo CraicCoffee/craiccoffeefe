@@ -5,16 +5,13 @@ import { history } from '@umijs/max';
 import { ConfigProvider, Layout, message } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import { HoxRoot } from 'hox';
-import type { FC } from 'react';
-import { useLayoutEffect, useState } from 'react';
 import type { ReactElement } from 'react-markdown/lib/react-markdown';
 import styled from 'styled-components';
-import MenuExtra from './components/MenuExtra';
-import { NavMenu } from './components/nav-menu';
 import { currentUser as queryCurrentUser } from './services/insightMon/authController';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
+
 
 export const request: RequestConfig = {
   responseInterceptors: [
@@ -41,106 +38,44 @@ export async function getInitialState(): Promise<{
       const msg = await queryCurrentUser();
       return msg?.data;
     } catch (error) {
-      history.push(loginPath);
+      // 处理错误，例如通过设置状态或者记录日志
     }
     return undefined;
   };
-  // 如果不是登录页面，执行
-  // if (history.location.pathname !== loginPath) {
-  //   const currentUser = await fetchUserInfo();
-  //   return {
-  //     fetchUserInfo,
-  //     currentUser,
-  //   };
-  // }
+
+  // 公开页面的路径列表
+  const publicPaths = ['/user/login', '/user/register'];
+
+  // 获取当前路径
+  const currentPath = history.location.pathname;
+
+  // 如果当前路径不在公开页面列表中，尝试获取用户信息
+  if (!publicPaths.includes(currentPath)) {
+    const currentUser = await fetchUserInfo();
+    if (!currentUser) {
+      // 如果没有获取到用户信息，且当前页面不是公开页面，重定向到登录页面
+      history.push('/user/login');
+      return { loading: false }; // 重定向后可以提早返回，不需要设置其他状态
+    }
+
+    // 返回获取到的用户信息
+    return {
+      fetchUserInfo,
+      currentUser,
+      loading: false,
+    };
+  }
+
+  // 如果是公开页面，只需返回 fetchUserInfo 函数
   return {
     fetchUserInfo,
+    loading: false,
   };
 }
 
-const ScrollPart = styled.div`
-  overflow-y: auto;
-`;
-
-const SideContainer = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  > * {
-    flex: none;
-  }
-  > ${ScrollPart} {
-    flex: auto;
-  }
-`;
-
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 12px 24px;
-  > span {
-    display: block;
-    margin-left: 8px;
-    color: #fff;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 22px;
-  }
-`;
-
 const ContentInner = styled.div`
-  padding-bottom: 40px;
+  //padding-bottom: 40px;
 `;
-
-const Footer = styled.div`
-  position: absolute;
-  bottom: 8px;
-  left: 0;
-  width: 100%;
-  height: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  color: #d0d4d7;
-  a {
-    color: inherit;
-  }
-`;
-
-const Sider: FC = () => {
-  const [visible, setVisible] = useState(history.location.pathname !== loginPath);
-  useLayoutEffect(() => {
-    const unlisten = history.listen(({ location }) => {
-      setVisible(location.pathname !== loginPath);
-    });
-    return () => {
-      unlisten();
-    };
-  }, []);
-  if (!visible) return null;
-  return (
-    <Layout.Sider
-      trigger={null}
-      className="side-nav side-nav-dark"
-      style={{
-        position: 'sticky',
-        top: 0,
-        height: '100vh',
-      }}
-    >
-      <SideContainer>
-        <Logo>
-          <img src="/logo-with-name-white.svg" height="36px" />
-        </Logo>
-        <ScrollPart>
-          <NavMenu />
-        </ScrollPart>
-        <MenuExtra />
-      </SideContainer>
-    </Layout.Sider>
-  );
-};
 
 export function rootContainer(container: ReactElement) {
   const isTestDomain = window.location.hostname?.endsWith('insightmontest.com');
@@ -153,21 +88,8 @@ export function rootContainer(container: ReactElement) {
       {dataflowProvider(
         <HoxRoot>
           <Layout>
-            <Sider />
             <Layout.Content style={{ position: 'relative' }}>
               <ContentInner>{container}</ContentInner>
-              <Footer>
-                <a
-                  target="_blank"
-                  href={`http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=${beian}`}
-                  rel="noopener noreferrer"
-                >
-                  粤公网安备{beian}号 &nbsp; &nbsp;
-                </a>
-                <a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">
-                  {icp}
-                </a>
-              </Footer>
             </Layout.Content>
           </Layout>
         </HoxRoot>,

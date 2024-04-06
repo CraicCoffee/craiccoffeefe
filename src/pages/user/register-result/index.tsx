@@ -18,25 +18,27 @@ const actions = (
   </div>
 );
 
-export type LocationState = Record<string, unknown>;
-
+export type LocationState = {
+    account: string;
+};
 const RegisterResult: React.FC<RouteChildrenProps> = ({ location }) => {
-  const email = location.state
-    ? (location.state as LocationState).account
-    : 'AntDesign@example.com';
-  return (
-    <Result
-      className={styles.registerResult}
-      status="success"
-      title={
-        <div className={styles.title}>
-          <span>你的账户：{email} 注册成功</span>
-        </div>
-      }
-      subTitle="激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活帐户。"
-      extra={actions}
-    />
-  );
+    // 使用可选链操作符和非空断言操作符来确保访问的安全性
+    const email = location?.state?.account ?? 'AntDesign@example.com';
+    // todo: 跳转后location数据拿不到
+    return (
+        <Result
+            className={styles.registerResult}
+            status="success"
+            title={
+                <div className={styles.title}>
+                    {/*<span>你的账户：{email} 注册成功</span>*/}
+                    <span>注册成功</span>
+                </div>
+            }
+            // subTitle="激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活帐户。"
+            extra={actions}
+        />
+    );
 };
 
 export default RegisterResult;

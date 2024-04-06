@@ -9,17 +9,19 @@ import WebhookView from './components/webhook';
 // import SecurityView from './components/security';
 import queryString from 'query-string';
 import styles from './style.less';
+import SecurityView from "@/pages/account/settings/components/security";
+import BindingView from "@/pages/account/settings/components/binding";
 
 const { Item } = Menu;
 
 const menuMap = {
   base: '基本设置',
-  // security: '安全设置',
+  security: '安全设置',
   // binding: '账号绑定',
-  notification: '新消息通知',
-  giftCard: '礼品卡兑换',
-  thirdPartyKey: '第三方密钥',
-  webhook: 'Webhook',
+  // notification: '新消息通知',
+  // giftCard: '礼品卡兑换',
+  // thirdPartyKey: '第三方密钥',
+  // webhook: 'Webhook',
 } as const;
 
 type SettingsStateKeys = keyof typeof menuMap;
@@ -76,8 +78,8 @@ const Settings: React.FC<any> = (props) => {
     switch (selectKey) {
       case 'base':
         return <BaseView />;
-      // case 'security':
-      //   return <SecurityView />;
+      case 'security':
+        return <SecurityView />;
       // case 'binding':
       //   return <BindingView />;
       case 'notification':

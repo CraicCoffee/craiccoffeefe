@@ -76,9 +76,17 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   }
 
   const { currentUser } = initialState;
-
-  if (!currentUser || !currentUser.name) {
+  if (!currentUser || !currentUser.email) {
     return loading;
+  }
+
+  function truncateEmail(email, maxLength) {
+    // 如果当前文本长度小于或等于最大长度，直接返回原文本
+    if (email.length <= maxLength) {
+      return email;
+    }
+    // 否则截断文本，并添加省略号
+    return `${email.substring(0, maxLength)}...`;
   }
 
   const menuHeaderDropdown = (
@@ -121,7 +129,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         <div style={{ marginRight: 8 }}>
           <AutomaticAvatar user={currentUser} />
         </div>
-        <div className={`${styles.name} anticon`}>{currentUser.name}</div>
+        <div className={`${styles.name} anticon`}>{truncateEmail(currentUser.email, 10)}</div>
       </div>
     </HeaderDropdown>
   );

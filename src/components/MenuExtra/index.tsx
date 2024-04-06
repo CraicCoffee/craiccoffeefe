@@ -2,6 +2,7 @@ import { ThemeSwitcherProvider, useThemeSwitcher } from 'react-css-theme-switche
 import styled from 'styled-components';
 import { withWrapper } from 'with-wrapper';
 import Avatar from './AvatarDropdown';
+import {useEffect} from "react";
 
 const Container = styled.div`
   padding: 12px;
@@ -32,10 +33,8 @@ const MenuExtra = withWrapper(
   //   {element}
   // </ThemeSwitcherProvider>
 )(() => {
-  // const { unreadCount } = useNoticeStore();
-
   // const { switcher, themes } = useThemeSwitcher();
-
+  //
   // useEffect(() => {
   //   const theme = localStorage.getItem('THEME') || themes.light;
   //   switcher({ theme });
@@ -43,18 +42,9 @@ const MenuExtra = withWrapper(
 
   return (
     <Container>
-      {/*<div style={{ margin: '0  0 10px  15px' }}>*/}
-      {/*  /!* <SelectLang className={styles.action} /> *!/*/}
-      {/*  <Badge count={unreadCount} offset={[8, 0]}>*/}
-      {/*    <IconButton*/}
-      {/*      onClick={() => {*/}
-      {/*        history.push('/notice');*/}
-      {/*      }}*/}
-      {/*    >*/}
-      {/*      <BellOutlined />*/}
-      {/*    </IconButton>*/}
-      {/*  </Badge>*/}
-      {/*</div>*/}
+      <div style={{ margin: '0  0 10px  15px' }}>
+        {/* <SelectLang className={styles.action} /> */}
+      </div>
       <Avatar menu />
     </Container>
   );

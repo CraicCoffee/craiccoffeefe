@@ -923,6 +923,7 @@ declare namespace API {
   type RegisterForm = {
     username?: string;
     password?: string;
+    phone?: string;
   };
 
   type registerParams = {
@@ -935,6 +936,13 @@ declare namespace API {
     password?: string;
     uuid?: string;
   };
+
+  type RegisterResponseUser = {
+    email?: string;
+    password?: string;
+    phone?: string;
+  };
+
 
   type RemoveDashBoardRequest = {
     uuid?: string;
@@ -1178,9 +1186,9 @@ declare namespace API {
 
   type ResponseRegisterResponse = {
     success?: boolean;
-    data?: RegisterResponse;
-    errorMessage?: string;
-    requestId?: string;
+    user?: RegisterResponseUser;
+    message?: string;
+    token?: string;
   };
 
   type ResponseString = {
