@@ -89,7 +89,7 @@ const BrewTable = ({brews, setBrews}) => {
         onRow={(record) => ({
           onClick: () => {
             if (!loading) { // 当不在加载状态时才允许跳转
-              navigate(`/brew/${record._id}`);
+              navigate(`/product-planet/brew/${record._id}`);
             }
           },
         })}

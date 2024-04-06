@@ -1,4 +1,4 @@
-import BrewList from "@/pages/brew/components/BrewList";
+import BrewList from "@/pages/product-planet/brew/components/BrewList";
 
 const BrewPage: React.FC = () => {
   return (

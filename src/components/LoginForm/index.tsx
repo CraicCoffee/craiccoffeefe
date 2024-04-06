@@ -93,7 +93,7 @@ const LoginFormV1: React.FC = () => {
       }}
     >
       <Form.Item style={{ textAlign: 'center' }}>
-        <img alt="logo" width="60%" src="/logo.svg" />
+        <img alt="logo" width="60%" src="/CraicCoffee.svg" />
       </Form.Item>
       <Tabs activeKey={type} onChange={setType}>
         <Tabs.TabPane

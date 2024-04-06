@@ -14,11 +14,11 @@ const StatisticWidget = ({ title, value, status, subtitle, prefix }) => {
             {status ? (
               <span
                 className={`font-size-md font-weight-bold ml-3 ${
-                  status !== 0 && status > 0 ? 'text-danger' : 'text-success'
+                  status !== 0 && status > 0 ? 'text-primary' : 'text-success'
                 }`}
               >
                 {status}
-                {status !== 0 && status > 0 ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
+                {/*{status !== 0 && status > 0 ? <ArrowUpOutlined /> : <ArrowDownOutlined />}*/}
               </span>
             ) : null}
           </div>

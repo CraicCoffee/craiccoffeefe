@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import BrewingRatingSelector from "@/pages/analysis/components/BrewingRatingSelector";
-import RatingChartAndTableAnalysis from "@/pages/analysis/components/RatingChartAndTableAnalysis";
+import BrewingRatingSelector from "@/pages/product-planet/analysis/components/BrewingRatingSelector";
+import RatingChartAndTableAnalysis from "@/pages/product-planet/analysis/components/RatingChartAndTableAnalysis";
 
 const BrewAnalysisPage = () => {
   const [brewData, setBrewData] = useState([]); // 用于存储从API获取的所有brew数据

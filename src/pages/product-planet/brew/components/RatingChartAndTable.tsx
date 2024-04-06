@@ -2,7 +2,8 @@
 import React from 'react';
 import {Card, Table} from 'antd';
 import { Line } from '@ant-design/charts';
-import RatingForm from "@/pages/brew/components/RatingForm";
+import RatingForm from "@/pages/product-planet/brew/components/RatingForm";
+import mapRatingDataToChart from "@/pages/product-planet/brew/util/dataMapping";
 
 const fieldTranslations = {
   acidityQuality: '酸(质量)',
@@ -26,10 +27,7 @@ const RatingChartAndTable = ({ brewId, ratingData, onRatingSubmit }) => {
   }
 
   // Map the rating data to the format required by the chart and table
-  const chartData = Object.keys(ratingData).map(key => ({
-    attributeName: key,
-    value: ratingData[key],
-  })).filter(data => !['_id', 'brew', 'createdAt', 'updatedAt', '__v'].includes(data.attributeName));
+  const chartData = mapRatingDataToChart(ratingData);
 
   const columns = [
     {
