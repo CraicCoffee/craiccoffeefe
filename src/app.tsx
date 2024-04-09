@@ -7,7 +7,7 @@ import zhCN from 'antd/es/locale/zh_CN';
 import { HoxRoot } from 'hox';
 import type { ReactElement } from 'react-markdown/lib/react-markdown';
 import styled from 'styled-components';
-import { currentUser as queryCurrentUser } from './services/insightMon/authController';
+import { currentUser as queryCurrentUser } from '@/services/craicCoffee/authController';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';

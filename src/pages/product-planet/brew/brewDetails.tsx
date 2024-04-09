@@ -116,14 +116,19 @@ const BrewDetails = () => {
         });
 
         // 创建第二个图表的数据
-        const groupTwoData = groupTwoKeys.flatMap((key) => {
-            const dataSeries = brewingLog[key];
-            if (!Array.isArray(dataSeries)) {
-                console.error(`Expected an array for key ${key}, but received:`, dataSeries);
-                return [];
-            }
-            return generateChartData(dataSeries, key);
-        });
+      const groupTwoData = groupTwoKeys.flatMap((key) => {
+        const dataSeries = brewingLog[key];
+        if (!Array.isArray(dataSeries)) {
+          console.error(`Expected an array for key ${key}, but received:`, dataSeries);
+          return [];
+        }
+        // 首先过滤掉大于50的数据，然后将小于0.2的数据替换为0
+        const adjustedDataSeries = dataSeries
+          .filter(value => value <= 50) // 移除大于50的数据点
+          .map(value => (value < 0.5 ? 0 : value)); // 将小于0.2的数据点值设为0
+
+        return generateChartData(adjustedDataSeries, key);
+      });
 
         return [
             {

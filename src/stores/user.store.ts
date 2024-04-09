@@ -1,4 +1,4 @@
-import { currentUser } from '@/services/insightMon/authController';
+import { currentUser } from '@/services/craicCoffee/authController';
 import { createGlobalStore } from 'hox';
 import useSWR from 'swr';
 

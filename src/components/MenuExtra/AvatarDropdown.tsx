@@ -1,5 +1,5 @@
 import ThemeSwitcher from '@/components/ThemeSwitcher';
-import { logout } from '@/services/insightMon/authController';
+import { logout } from '@/services/craicCoffee/authController';
 import { hashStringToColor } from '@/utils/hash-string-to-color';
 import {
   AreaChartOutlined,

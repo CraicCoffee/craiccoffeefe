@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { comparatorValue } from '@/pages/alarm/utils';
 import { getMetricsFirstPage } from '@/pages/metric/service';
-import { getMetricExpression } from '@/services/insightMon/metricController';
+import { getMetricExpression } from '@/services/craicCoffee/metricController';
 import { openAIService } from '@/services/open-ai.service';
 import dayjs from 'dayjs';
 

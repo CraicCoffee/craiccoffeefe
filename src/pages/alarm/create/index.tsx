@@ -21,8 +21,8 @@ import {
   getTimeRange,
   periodOptions,
 } from '@/pages/metric/utils';
-import { addAlarmExpression } from '@/services/insightMon/alarmController';
-import { getMetricExpression } from '@/services/insightMon/metricController';
+import { addAlarmExpression } from '@/services/craicCoffee/alarmController';
+import { getMetricExpression } from '@/services/craicCoffee/metricController';
 import { MinusCircleOutlined, PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { history, Link, useIntl, useLocation, useSearchParams } from '@umijs/max';
 import { useAsyncEffect, useCountDown, useRequest } from 'ahooks';

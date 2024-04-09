@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Form, Input, List, message, Modal} from 'antd';
-import {changeCurrentUserPassword} from "@/services/insightMon/settingController";
+import {changeCurrentUserPassword} from "@/services/craicCoffee/settingController";
 
 type Unpacked<T> = T extends (infer U)[] ? U : T;
 

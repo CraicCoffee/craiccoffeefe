@@ -1,4 +1,4 @@
-# InsightMon [![deploy](https://github.com/InsightMon/InsightMon/actions/workflows/pull_release_deploy.yml/badge.svg)](https://github.com/InsightMon/InsightMon/actions/workflows/pull_release_deploy.yml)
+# Craic Coffee Community [![deploy](https://github.com/InsightMon/InsightMon/actions/workflows/pull_release_deploy.yml/badge.svg)](https://github.com/InsightMon/InsightMon/actions/workflows/pull_release_deploy.yml)
 
 This project is initialized with [UmiJS](https://umijs.org/). Follow is the quick guide for how to use.
 

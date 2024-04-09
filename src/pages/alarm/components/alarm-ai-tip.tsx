@@ -1,5 +1,5 @@
 import { getMetricsFirstPage } from '@/pages/metric/service';
-import { getMetricExpression } from '@/services/insightMon/metricController';
+import { getMetricExpression } from '@/services/craicCoffee/metricController';
 import { openAIService } from '@/services/open-ai.service';
 import { Alert } from 'antd';
 import dayjs from 'dayjs';

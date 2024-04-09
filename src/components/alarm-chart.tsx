@@ -3,7 +3,7 @@ import { getAnnotations } from '@/pages/alarm/utils';
 import LineChartWidget from '@/pages/metric/components/LineChartWidget';
 import { getMetricsFirstPage } from '@/pages/metric/service';
 import { convertMetricsDataToChartData, getParamasFromReq } from '@/pages/metric/utils';
-import { getMetricExpression } from '@/services/insightMon/metricController';
+import { getMetricExpression } from '@/services/craicCoffee/metricController';
 import { useRequest } from 'ahooks';
 import { useEffect, useState, type FC } from 'react';
 import styled from 'styled-components';

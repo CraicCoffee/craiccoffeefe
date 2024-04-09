@@ -25,6 +25,7 @@ import AvatarStatus from "@/components/shared-components/AvatarStatus";
 import BrewLogChart from "@/pages/product-planet/brew/components/BrewLogChart";
 import RadialBarChartComponent from "@/pages/product-planet/brew/components/RadiaBar";
 import mapRatingDataToChart from "@/pages/product-planet/brew/util/dataMapping";
+import FlavorWordCloud from "@/pages/product-planet/brew/components/FlavorWordCloud";
 
 // const MembersChart = props => (
 //     <ApexChart {...props}/>
@@ -149,7 +150,7 @@ export const DefaultDashboard = ({brewLogChartData, ratingData, brewJson}) => {
     return (
         <>
             <Row gutter={16}>
-                <Col xs={24} sm={24} md={24} lg={18}>
+                <Col xs={24} sm={24} md={24} lg={16}>
                     <Row gutter={16}>
                         <Col xs={24} sm={24} md={24} lg={24} xl={8}>
                             <StatisticWidget
@@ -184,15 +185,18 @@ export const DefaultDashboard = ({brewLogChartData, ratingData, brewJson}) => {
                         </Col>
                     </Row>
                 </Col>
-                <Col xs={24} sm={24} md={24} lg={6}>
+                <Col xs={24} sm={24} md={24} lg={8}>
                     <Card>
                         <RadialBarChartComponent data={radiaBarData}></RadialBarChartComponent>
                     </Card>
-                    <StatisticWidget
-                        value='17,329'
-                        status={3.7}
-                        subtitle="Active members"
-                    />
+                    {/*<StatisticWidget*/}
+                    {/*    value='17,329'*/}
+                    {/*    status={3.7}*/}
+                    {/*    subtitle="Active members"*/}
+                    {/*/>*/}
+                  <Card>
+                    <FlavorWordCloud></FlavorWordCloud>
+                  </Card>
                 </Col>
             </Row>
             <Row gutter={16}>

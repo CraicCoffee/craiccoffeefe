@@ -5,7 +5,7 @@ import Copilot from '@/copilot';
 import { AlarmHistory } from '@/pages/alarm/components/alarm-history';
 import { AlarmInfo } from '@/pages/alarm/components/alarm-info';
 import { alarmMap, statusBg } from '@/pages/alarm/utils';
-import { getAlarmExpression } from '@/services/insightMon/alarmController';
+import { getAlarmExpression } from '@/services/craicCoffee/alarmController';
 import type { GetAlarmDetail } from '@/types/alarm';
 import { isDevOrTest } from '@/utils/is-dev-or-test';
 import { history, useIntl, useParams, useSearchParams } from '@umijs/max';

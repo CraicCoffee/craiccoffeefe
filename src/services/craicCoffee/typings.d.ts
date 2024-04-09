@@ -1479,4 +1479,46 @@ declare namespace API {
     /** 不发送返回第一页，给出上次的返回下一页。 */
     pageToken?: string;
   };
+
+  // 用于创建风味描述的请求体
+  export type FlavorProfileCreateRequest = {
+    highTempDescriptors: string[];
+    midTempDescriptors: string[];
+    lowTempDescriptors: string[];
+    brewId: string; // 假设brew的类型是字符串ID
+  };
+
+  // 用于更新风味描述的请求体
+  export type FlavorProfileUpdateRequest = {
+    highTempDescriptors?: string[];
+    midTempDescriptors?: string[];
+    lowTempDescriptors?: string[];
+    // brew字段通常在更新时不会被改变，所以这里没有包括
+  };
+
+  export interface FlavorProfile {
+    _id: string;
+    highTempDescriptors: string[];
+    midTempDescriptors: string[];
+    lowTempDescriptors: string[];
+    brew: string; // 或者 BrewRating 类型，如果需要更详细的信息
+  }
+
+  export interface FlavorProfileCreateRequest {
+    highTempDescriptors: string[];
+    midTempDescriptors: string[];
+    lowTempDescriptors: string[];
+    brew: string; // BrewRating 的 ID
+  }
+
+  export interface FlavorProfileUpdateRequest {
+    highTempDescriptors?: string[];
+    midTempDescriptors?: string[];
+    lowTempDescriptors?: string[];
+    // brew 字段在更新时通常不会更改
+  }
+  export interface ErrorResponse {
+    error: string;
+  }
+
 }

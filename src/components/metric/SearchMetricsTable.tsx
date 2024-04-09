@@ -5,7 +5,7 @@ import {
   listMetrics,
   wildcardSearchMetrics,
   wildcardSearchMetricsAggregated,
-} from '@/services/insightMon/metricController';
+} from '@/services/craicCoffee/metricController';
 import { generateUniqueKeyForMetric } from '@/utils/generate-unique-key-for-metric';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { useIntl } from '@umijs/max';

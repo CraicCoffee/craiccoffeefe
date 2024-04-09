@@ -1,9 +1,10 @@
 // RatingChartAndTable.js
 import React from 'react';
-import {Card, Table} from 'antd';
+import {Card, Col, Row, Table} from 'antd';
 import { Line } from '@ant-design/charts';
 import RatingForm from "@/pages/product-planet/brew/components/RatingForm";
 import mapRatingDataToChart from "@/pages/product-planet/brew/util/dataMapping";
+import FlavorProfileCard from "@/pages/product-planet/brew/components/FlavorProfileCard";
 
 const fieldTranslations = {
   acidityQuality: '酸(质量)',
@@ -98,18 +99,21 @@ const RatingChartAndTable = ({ brewId, ratingData, onRatingSubmit }) => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <div style={{ width: '50%' }}>
+    <Row gutter={[16, 16]}>
+      <Col xs={24} md={12} lg={16}>
         <Card title="Rating Chart">
           <Line {...lineConfig} />
         </Card>
-      </div>
-      <div style={{ width: '45%' }}>
+        <Card title="Flavor Profile">
+          <FlavorProfileCard brewId={brewId} />
+        </Card>
+      </Col>
+      <Col xs={24} md={12} lg={8}>
         <Card title="Rating Table">
           <Table dataSource={chartData} columns={columns} pagination={false} />
         </Card>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 

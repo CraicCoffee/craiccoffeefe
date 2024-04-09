@@ -1,4 +1,4 @@
-import { login } from '@/services/insightMon/authController';
+import { login } from '@/services/craicCoffee/authController';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { FormattedMessage, history, useIntl, useLocation, useModel } from '@umijs/max';
 import { Alert, Button, Checkbox, Form, Input, message, Tabs } from 'antd';

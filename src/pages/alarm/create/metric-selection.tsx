@@ -1,7 +1,7 @@
 import Tags from '@/components/Tags';
 import SearchMetricsTable from '@/pages/metric/components/SearchMetricsTable';
 import type { MetricDataType } from '@/pages/metric/data';
-import { getMetricsTagPairs } from '@/services/insightMon/metricController';
+import { getMetricsTagPairs } from '@/services/craicCoffee/metricController';
 import { Col, Divider, Input, message, Row, Select, Space, Table, Tabs } from 'antd';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';

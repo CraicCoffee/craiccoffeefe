@@ -4,7 +4,7 @@ import {
   listMetrics,
   wildcardSearchMetrics,
   wildcardSearchMetricsAggregated,
-} from '@/services/insightMon/metricController';
+} from '@/services/craicCoffee/metricController';
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,

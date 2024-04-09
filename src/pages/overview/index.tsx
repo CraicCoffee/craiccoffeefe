@@ -1,7 +1,7 @@
 import AlarmTable from '@/pages/overview/components/AlarmTable';
 import DisplayDataSet from '@/pages/overview/components/DisplayDataSet';
 import TrafficStatistic from '@/pages/overview/components/TrafficStatistic';
-import { overview } from '@/services/insightMon/overviewController';
+import { overview } from '@/services/craicCoffee/overviewController';
 import { useRequest } from 'ahooks';
 import { Col, Row } from 'antd';
 import styled from 'styled-components';

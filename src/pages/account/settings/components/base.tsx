@@ -4,8 +4,8 @@ import {Button, Cascader, Form, Input, message, Select, Skeleton} from 'antd';
 import React, {useState} from 'react';
 import options from '../geographic/cascaderAddressOptions';
 import styles from './BaseView.less';
-import {updateCurrentUser} from "@/services/insightMon/settingController";
-import {currentUser as queryCurrentUser} from "@/services/insightMon/authController";
+import {updateCurrentUser} from "@/services/craicCoffee/settingController";
+import {currentUser as queryCurrentUser} from "@/services/craicCoffee/authController";
 import {Upload} from 'antd';
 import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 
